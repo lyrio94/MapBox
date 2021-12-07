@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">MapBox</string>
+    <string name="o_que_gostaria_de_fazer">O que gostaria de fazer?</string>
+    <string name="todo">TODO</string>
+    <string name="button">Button</string>
+    <string name="pin">pin</string>
+    <string name="novo_pin">novo pin</string>
+    <string name="mapa">mapa</string>
+    <string name="mapbox_access_token" translatable="false">
+      sk.eyJ1IjoiYWxleDk0IiwiYSI6ImNrd28zbWl3OTJzOGgycG80NjNwZjkwbWUifQ.7wV3ZYlZG52jU69lGTuqSA
+    </string>
+    <string name="start_navigation">Start Navigation</string>
+    <string name="navigation_guidance_day">Start Navigation</string>
+    <string name="user_location_permission_explanation">This app needs location permissions to show its functionality.</string>
+    <string name="user_location_permission_not_granted">You didn\'t grant location permissions.</string>
+    <string name="posicionar_o_pin">Posicionar o pin</string>
+    <string name="latitude">-5.1670937</string>
+    <string name="longitude">119.4796103</string>
+</resources>
