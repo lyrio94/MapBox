@@ -4,7 +4,7 @@
     xmlns:mapbox="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ibFazer"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
@@ -14,6 +14,7 @@
         android:layout_height="114dp"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/button"
+        app:layout_constraintHorizontal_bias="0.0"
         mapbox:layout_constraintBottom_toBottomOf="parent"
         mapbox:layout_constraintEnd_toEndOf="parent"
         mapbox:layout_constraintStart_toStartOf="parent"
@@ -22,11 +23,12 @@
 
     <com.mapbox.maps.MapView
         android:id="@+id/mapView"
-        android:layout_width="411dp"
-        android:layout_height="601dp"
-        android:layout_marginBottom="2dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:contentDescription="@string/mapa"
         app:layout_constraintBottom_toTopOf="@+id/ibQueFazer"
+        app:layout_constraintHorizontal_bias="0.0"
         mapbox:layout_constraintEnd_toEndOf="parent"
         mapbox:layout_constraintStart_toStartOf="parent"
         mapbox:mapbox_cameraTargetLat="59.31"
