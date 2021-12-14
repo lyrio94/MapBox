@@ -3,15 +3,13 @@ package com.example.mapbox
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageButton
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import com.example.mapbox.databinding.ActivityMainBinding
 import com.example.mapbox.utils.LocationPermissionHelper
 import com.mapbox.android.gestures.MoveGestureDetector
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.maps.CameraOptions
-import com.mapbox.maps.MapView
 import com.mapbox.maps.Style
 import com.mapbox.maps.extension.style.expressions.dsl.generated.interpolate
 import com.mapbox.maps.plugin.LocationPuck2D
@@ -24,16 +22,16 @@ import java.lang.ref.WeakReference
 
 
 class MainActivity : AppCompatActivity() {
-    private var mapView: MapView? = null
-    private lateinit var btn: ImageButton
     private lateinit var locationPermissionHelper: LocationPermissionHelper
+    private lateinit var binding: ActivityMainBinding
+
 
     private val onIndicatorBearingChangedListener = OnIndicatorBearingChangedListener {
-        mapView?.getMapboxMap()?.setCamera(CameraOptions.Builder().bearing(it).build())
+        binding.mapView.getMapboxMap().setCamera(CameraOptions.Builder().bearing(it).build())
     }
     private val onIndicatorPositionChangedListener = OnIndicatorPositionChangedListener {
-        mapView?.getMapboxMap()?.setCamera(CameraOptions.Builder().center(it).build())
-        mapView?.gestures?.focalPoint = mapView?.getMapboxMap()?.pixelForCoordinate(it)
+        binding.mapView.getMapboxMap().setCamera(CameraOptions.Builder().center(it).build())
+        binding.mapView.gestures.focalPoint = binding.mapView.getMapboxMap().pixelForCoordinate(it)
     }
     private val onMoveListener = object : OnMoveListener {
         override fun onMoveBegin(detector: MoveGestureDetector) {
@@ -50,18 +48,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding
+            .inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
         locationPermissionHelper = LocationPermissionHelper(WeakReference(this))
         locationPermissionHelper.checkPermissions {
             onMapReady()
         }
+        binding.ibQueFazer.setOnClickListener { acessoOpcoes() }
 
-        mapView = findViewById(R.id.mapView)
-        btn = findViewById(R.id.ibQueFazer)
-
-        btn.setOnClickListener {
-            acessoOpcoes()
-        }
     }
     private fun acessoOpcoes(){
         val navegaParaTelaOpcoes = Intent(this, Opcoes::class.java)
@@ -69,12 +65,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onMapReady() {
-        mapView?.getMapboxMap()?.setCamera(
+        binding.mapView.getMapboxMap().setCamera(
             CameraOptions.Builder()
                 .zoom(14.0)
                 .build()
         )
-        mapView?.getMapboxMap()?.loadStyleUri(
+        binding.mapView.getMapboxMap().loadStyleUri(
             Style.MAPBOX_STREETS
         ) {
             initLocationComponent()
@@ -83,8 +79,8 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun initLocationComponent() {
-        val locationComponentPlugin = mapView?.location
-        locationComponentPlugin?.updateSettings {
+        val locationComponentPlugin = binding.mapView.location
+        locationComponentPlugin.updateSettings {
             this.enabled = true
             pulsingEnabled = true
             this.locationPuck = LocationPuck2D(
@@ -111,11 +107,11 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        locationComponentPlugin?.addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
-        locationComponentPlugin?.addOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
+        locationComponentPlugin.addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
+        locationComponentPlugin.addOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
     }
     private fun setupGesturesListener() {
-        mapView?.gestures?.addOnMoveListener(onMoveListener)
+        binding.mapView.gestures.addOnMoveListener(onMoveListener)
     }
 
     override fun onRequestPermissionsResult(
@@ -128,21 +124,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onCameraTrackingDismissed() {
-        Toast.makeText(this, "onCameraTrackingDismissed", Toast.LENGTH_SHORT).show()
-        mapView?.location
-            ?.removeOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
-        mapView?.location
-            ?.removeOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
-        mapView?.gestures?.removeOnMoveListener(onMoveListener)
+        //Toast.makeText(this, "onCameraTrackingDismissed", Toast.LENGTH_SHORT).show()
+        binding.mapView.location
+            .removeOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
+        binding.mapView.location
+            .removeOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
+        binding.mapView.gestures.removeOnMoveListener(onMoveListener)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView?.location
-            ?.removeOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
-        mapView?.location
-            ?.removeOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
-        mapView?.gestures?.removeOnMoveListener(onMoveListener)
+        binding.mapView.location
+            .removeOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
+        binding.mapView.location
+            .removeOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
+        binding.mapView.gestures.removeOnMoveListener(onMoveListener)
     }
 
 

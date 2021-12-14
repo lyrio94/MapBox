@@ -2,10 +2,9 @@ package com.example.mapbox
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.mapbox.databinding.ActivityVisualizarPinsBinding
 import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
@@ -24,24 +23,23 @@ import com.mapbox.mapboxsdk.utils.BitmapUtils
 
 class VisualizarPins : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var map: MapboxMap
-    private var mapView: MapView? = null
     private val sourceId = "SOURCE_ID"
     private val iconId = "ICON_ID"
     private val layerId = "LAYER_ID"
     private var latLng = LatLng( -5.555559, 119.823655)
+    private lateinit var binding: ActivityVisualizarPinsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
-        setContentView(R.layout.activity_visualizar_pins)
-        mapView = findViewById(R.id.mapView)
-        mapView?.onCreate(savedInstanceState)
-        mapView?.getMapAsync(this)
+        binding = ActivityVisualizarPinsBinding
+            .inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+        binding.mapView.onCreate(savedInstanceState)
+        binding.mapView.getMapAsync(this)
 
-        val btn = findViewById<View>(R.id.ibVoltar) as ImageButton
-        btn.setOnClickListener {
-            voltarOpcoes()
-        }
+        binding.ibVoltar.setOnClickListener { voltarOpcoes() }
 
     }
     private fun voltarOpcoes(){

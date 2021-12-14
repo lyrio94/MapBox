@@ -2,10 +2,9 @@ package com.example.mapbox
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.mapbox.databinding.ActivityAdicionarPinBinding
 import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
@@ -13,7 +12,6 @@ import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
@@ -28,25 +26,22 @@ class AdicionarPin : AppCompatActivity(), OnMapReadyCallback, MapboxMap.OnMapCli
     private val sourceId = "SOURCE_ID"
     private val iconId = "ICON_ID"
     private val layerId = "LAYER_ID"
-    private var mapView: MapView? = null
     private var latLng = LatLng(-5.1670937, 119.4796103)
+    private lateinit var binding: ActivityAdicionarPinBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
-        setContentView(R.layout.activity_adicionar_pin)
-        mapView = findViewById(R.id.mapView)
-        mapView?.onCreate(savedInstanceState)
-        mapView?.getMapAsync(this)
+        binding = ActivityAdicionarPinBinding
+            .inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+        binding.mapView.onCreate(savedInstanceState)
+        binding.mapView.getMapAsync(this)
 
-        val btn = findViewById<View>(R.id.ibBack) as ImageButton
-        btn.setOnClickListener {
-            voltarOpcoes()
-        }
-        val btnCheck = findViewById<View>(R.id.ibCheck) as ImageButton
-        btnCheck.setOnClickListener {
-            confirmarPin()
-        }
+        binding.ibBack.setOnClickListener { voltarOpcoes() }
+        binding.ibCheck.setOnClickListener { confirmarPin() }
+
 
     }
     private fun voltarOpcoes(){
@@ -63,7 +58,6 @@ class AdicionarPin : AppCompatActivity(), OnMapReadyCallback, MapboxMap.OnMapCli
         map.uiSettings.isCompassEnabled = false
         map.uiSettings.isLogoEnabled = false
         map.uiSettings.isAttributionEnabled = false
-        setOnMarkerClickListener()
         map.addOnMapClickListener(this)
 
         val position = CameraPosition.Builder().target(latLng).zoom(13.0).tilt(10.0).build()
@@ -97,39 +91,35 @@ class AdicionarPin : AppCompatActivity(), OnMapReadyCallback, MapboxMap.OnMapCli
 
     override fun onResume() {
         super.onResume()
-        mapView!!.onResume()
+        binding.mapView.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView!!.onPause()
+        binding.mapView.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView!!.onStop()
+        binding.mapView.onStop()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView!!.onLowMemory()
+        binding.mapView.onLowMemory()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView!!.onDestroy()
+        binding.mapView.onDestroy()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView!!.onSaveInstanceState(outState)
+        binding.mapView.onSaveInstanceState(outState)
 
     }
 
-
 }
 
-private fun setOnMarkerClickListener(): Boolean {
-    return true
-}
 
