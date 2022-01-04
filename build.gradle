@@ -15,7 +15,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath  'com.android.tools.build:gradle:7.0.4'
+        classpath 'com.android.tools.build:gradle:7.1.0-alpha11'
         classpath  'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0'
         classpath  'com.mapbox.gradle.plugins:access-token:0.2.1'
         classpath 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.6.0'

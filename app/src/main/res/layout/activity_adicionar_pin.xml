@@ -7,10 +7,22 @@
     android:layout_height="match_parent"
     tools:context=".AdicionarPin">
 
+    <com.mapbox.mapboxsdk.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/mapa"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        mapbox:mapbox_cameraTargetLat="59.31"
+        mapbox:mapbox_cameraTargetLng="18.06"
+        mapbox:mapbox_cameraZoom="14.0" />
+
     <TextView
         android:id="@+id/TvPosicionarPin"
-        android:layout_width="211dp"
-        android:layout_height="58dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginBottom="72dp"
         android:text="@string/posicionar_o_pin"
         android:textSize="24sp"
@@ -21,8 +33,8 @@
 
     <TextView
         android:id="@+id/tvLatitude"
-        android:layout_width="178dp"
-        android:layout_height="45dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="16dp"
         android:text="@string/latitude"
@@ -32,8 +44,8 @@
 
     <TextView
         android:id="@+id/tvLongitude"
-        android:layout_width="190dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/longitude"
@@ -43,8 +55,8 @@
 
     <ImageButton
         android:id="@+id/ibCheck"
-        android:layout_width="144dp"
-        android:layout_height="69dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="39dp"
         android:layout_marginEnd="16dp"
         android:contentDescription="@string/button"
@@ -57,25 +69,13 @@
 
     <ImageButton
         android:id="@+id/ibBack"
-        android:layout_width="111dp"
-        android:layout_height="86dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="4dp"
         android:contentDescription="@string/button"
         app:layout_constraintTop_toTopOf="parent"
         mapbox:layout_constraintStart_toStartOf="parent"
         mapbox:srcCompat="@drawable/back_button"
-        tools:ignore="RedundantDescriptionCheck" />
+        tools:ignore="RedundantDescriptionCheck,ImageContrastCheck" />
 
-    <com.mapbox.mapboxsdk.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="413dp"
-        android:layout_height="482dp"
-        android:layout_marginTop="84dp"
-        android:contentDescription="@string/mapa"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        mapbox:mapbox_cameraTargetLat="59.31"
-        mapbox:mapbox_cameraTargetLng="18.06"
-        mapbox:mapbox_cameraZoom="14.0"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
