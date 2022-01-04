@@ -3,6 +3,7 @@ package com.example.mapbox
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import com.example.mapbox.databinding.ActivityMainBinding
@@ -53,9 +54,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         locationPermissionHelper = LocationPermissionHelper(WeakReference(this))
-        locationPermissionHelper.checkPermissions {
-            onMapReady()
-        }
+        locationPermissionHelper.checkPermissions { onMapReady() }
         binding.ibQueFazer.setOnClickListener { acessoOpcoes() }
 
     }
@@ -124,7 +123,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onCameraTrackingDismissed() {
-        //Toast.makeText(this, "onCameraTrackingDismissed", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "onCameraTrackingDismissed", Toast.LENGTH_SHORT).show()
         binding.mapView.location
             .removeOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
         binding.mapView.location

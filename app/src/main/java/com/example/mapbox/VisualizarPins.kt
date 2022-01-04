@@ -12,7 +12,6 @@ import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
@@ -38,15 +37,12 @@ class VisualizarPins : AppCompatActivity(), OnMapReadyCallback {
         setContentView(view)
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync(this)
-
         binding.ibVoltar.setOnClickListener { voltarOpcoes() }
-
     }
     private fun voltarOpcoes(){
         val navegaParaTelaOpcoes = Intent(this, Opcoes::class.java)
         startActivity(navegaParaTelaOpcoes)
     }
-
     override fun onMapReady(mapboxMap: MapboxMap) {
         map = mapboxMap
         map.setStyle(Style.MAPBOX_STREETS) {}
@@ -56,8 +52,6 @@ class VisualizarPins : AppCompatActivity(), OnMapReadyCallback {
 
         val position = CameraPosition.Builder().target(latLng).zoom(10.0).tilt(12.0).build()
         map.animateCamera(CameraUpdateFactory.newCameraPosition(position))
-
-
         val symbolLayers = ArrayList<Feature>()
         symbolLayers.add(Feature.fromGeometry(Point.fromLngLat(119.4796103,  -5.1670937)))
         symbolLayers.add(Feature.fromGeometry(Point.fromLngLat( 119.823655,  -5.555559)))
@@ -74,10 +68,6 @@ class VisualizarPins : AppCompatActivity(), OnMapReadyCallback {
                     PropertyFactory.iconAllowOverlap(true),
                     PropertyFactory.iconIgnorePlacement(true)
                 ))
-
         )
-        {
-
-        }
     }
 }

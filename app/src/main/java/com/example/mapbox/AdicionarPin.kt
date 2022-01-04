@@ -38,20 +38,16 @@ class AdicionarPin : AppCompatActivity(), OnMapReadyCallback, MapboxMap.OnMapCli
         setContentView(view)
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync(this)
-
         binding.ibBack.setOnClickListener { voltarOpcoes() }
-        binding.ibCheck.setOnClickListener { confirmarPin() }
-
-
+       // binding.ibCheck.setOnClickListener { confirmarPin() }
     }
     private fun voltarOpcoes(){
         val navegaParaTelaOpcoes = Intent(this, Opcoes::class.java)
         startActivity(navegaParaTelaOpcoes)
     }
-    private fun confirmarPin(){
-
-    }
-
+    //private fun confirmarPin(){
+//
+   // }
     override fun onMapReady(mapboxMap: MapboxMap) {
         map = mapboxMap
         map.setStyle(Style.MAPBOX_STREETS) {}
@@ -62,8 +58,6 @@ class AdicionarPin : AppCompatActivity(), OnMapReadyCallback, MapboxMap.OnMapCli
 
         val position = CameraPosition.Builder().target(latLng).zoom(13.0).tilt(10.0).build()
         map.animateCamera(CameraUpdateFactory.newCameraPosition(position))
-
-
         val symbolLayers = ArrayList<Feature>()
         symbolLayers.add(Feature.fromGeometry(Point.fromLngLat(latLng.longitude, latLng.latitude)))
         map.setStyle(
@@ -75,51 +69,38 @@ class AdicionarPin : AppCompatActivity(), OnMapReadyCallback, MapboxMap.OnMapCli
                     iconSize(1.0f), iconAllowOverlap(true), iconIgnorePlacement(true)))
 
         )
-        {
-
-        }
-
     }
     override fun onMapClick(point: LatLng): Boolean {
         val destinationPoint = Point.fromLngLat(point.longitude, point.latitude)
         val source = map.style!!.getSourceAs<GeoJsonSource>("destination-source-id")
         source?.setGeoJson(Feature.fromGeometry(destinationPoint))
         //Toast.makeText(this@AdicionarPin, "LongClick1:chega aqui,mas nao marca o pin", Toast.LENGTH_SHORT).show()
-
         return true
     }
-
     override fun onResume() {
         super.onResume()
         binding.mapView.onResume()
     }
-
     override fun onPause() {
         super.onPause()
         binding.mapView.onPause()
     }
-
     override fun onStop() {
         super.onStop()
         binding.mapView.onStop()
     }
-
     override fun onLowMemory() {
         super.onLowMemory()
         binding.mapView.onLowMemory()
     }
-
     override fun onDestroy() {
         super.onDestroy()
         binding.mapView.onDestroy()
     }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         binding.mapView.onSaveInstanceState(outState)
-
     }
-
 }
 
 

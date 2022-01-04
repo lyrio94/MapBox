@@ -33,18 +33,12 @@ class Opcoes : AppCompatActivity() {
         binding.mapView.gestures.focalPoint = binding.mapView.getMapboxMap().pixelForCoordinate(it)
     }
     private val onMoveListener = object : OnMoveListener {
-        override fun onMoveBegin(detector: MoveGestureDetector) {
-            onCameraTrackingDismissed()
-        }
-
+        override fun onMoveBegin(detector: MoveGestureDetector) { onCameraTrackingDismissed() }
         override fun onMove(detector: MoveGestureDetector): Boolean {
             return false
         }
-
         override fun onMoveEnd(detector: MoveGestureDetector) {}
     }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
@@ -53,10 +47,7 @@ class Opcoes : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         locationPermissionHelper = LocationPermissionHelper(WeakReference(this))
-        locationPermissionHelper.checkPermissions {
-            onMapReady()
-        }
-
+        locationPermissionHelper.checkPermissions { onMapReady() }
         binding.ibVisualizar.setOnClickListener { acessoVisualizarPins() }
         binding.ibAdicionar.setOnClickListener { acessoAdicionarPins() }
 
@@ -65,7 +56,6 @@ class Opcoes : AppCompatActivity() {
         val navegaParaTelaVisualizarPins = Intent(this, VisualizarPins::class.java)
         startActivity(navegaParaTelaVisualizarPins)
     }
-
     private fun acessoAdicionarPins(){
         val navegaParaTelaOAdicionarPins = Intent(this, AdicionarPin::class.java)
         startActivity(navegaParaTelaOAdicionarPins)
@@ -119,7 +109,6 @@ class Opcoes : AppCompatActivity() {
     private fun setupGesturesListener() {
         binding.mapView.gestures.addOnMoveListener(onMoveListener)
     }
-
     private fun onCameraTrackingDismissed() {
         Toast.makeText(this, "onCameraTrackingDismissed", Toast.LENGTH_SHORT).show()
         binding.mapView.location
@@ -128,7 +117,6 @@ class Opcoes : AppCompatActivity() {
             .removeOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
         binding.mapView.gestures.removeOnMoveListener(onMoveListener)
     }
-
     override fun onDestroy() {
         super.onDestroy()
         binding.mapView.location
@@ -137,5 +125,4 @@ class Opcoes : AppCompatActivity() {
             .removeOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
         binding.mapView.gestures.removeOnMoveListener(onMoveListener)
     }
-
     }
